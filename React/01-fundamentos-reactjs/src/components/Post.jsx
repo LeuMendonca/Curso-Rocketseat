@@ -22,6 +22,13 @@ export function Post({ author , content , publishedAt }){
         addSuffix: true
     })
 
+    function handleSetNewCommentText(){
+        event.preventDefault();
+        event.target.setCustomValidity("")
+
+        setNewCommentText( event.target.value )
+    }
+
     function handleCreateNewComment( e ){
         e.preventDefault();
         
@@ -30,9 +37,21 @@ export function Post({ author , content , publishedAt }){
         setNewCommentText("")
     }
 
-    function deleteComment( comment ){
-        console.log(comment)
+    function handleNewCommentInvalid(){
+        event.target.setCustomValidity("Esse campo é obrigatório.")
     }
+
+
+    function deleteComment( comment ){
+
+        const commentsWithoutDeletedOne = comments.filter( ( item ) => {
+            return comment != item
+        })
+
+        setComments( commentsWithoutDeletedOne )
+    }
+
+    const isNewCommentEmpty = newCommentText.length === 0
 
     return(
         <article className={ styles.post }>
@@ -68,13 +87,18 @@ export function Post({ author , content , publishedAt }){
                 <strong>Deixe seu feedback</strong>
 
                 <textarea
-                    onChange={ ( e ) => setNewCommentText( e.target.value )}
+                    onChange={ handleSetNewCommentText }
                     value={ newCommentText }
+                    onInvalid={ handleNewCommentInvalid }
                     placeholder='Deixe um comentário'
+                    required
                 />
 
                 <footer>
-                    <button type="submit">Publicar</button>
+                    <button type="submit"
+                        disabled={ isNewCommentEmpty }>
+                        Publicar
+                    </button>
                 </footer>
             </form>
 
