@@ -1,0 +1,68 @@
+form{
+    border-bottom: 1px solid #CCC;
+    padding-bottom: 1rem;
+}
+
+.containerTodos {
+    background-color: #f2f2f2;
+    padding: 2rem;
+    width: 600px;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    border-radius: 5px;
+}
+
+.formTodo {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: .5rem;
+    align-items: flex-start;
+    width: 100%;
+}
+
+.formControl {
+    display: flex;
+    flex-direction: row;
+    gap: .2rem;
+    width: 100%;
+}
+
+.formControl input {
+    padding: .3rem .6rem;
+    border: none;
+    box-shadow: 0 0 3px black;
+    flex: 1;
+}
+
+.listTodos {
+    margin: 1rem 0;
+}
+
+.listTodos h2{
+    text-align: center;
+    font-size: 1.9rem;
+    margin-bottom: 1.5rem;
+}
+
+
+.containerTodos button{
+    padding: .6rem .9rem;
+    border: none;
+    cursor: pointer;
+    color: #FFF;
+    transition: color .2s;
+}
+
+.todo button:hover{
+    color: #000;
+}
+
+.btnAddTodo {
+    background-color: #05babc;
+    padding: .3rem .6rem;
+}
+
+
+

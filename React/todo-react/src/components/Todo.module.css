@@ -1,0 +1,26 @@
+.todo {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    padding: 1rem 0;
+}
+
+.buttons {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: .3rem;
+}
+
+.btnComplete {
+    background-color: #56b11b;
+}
+
+.btnDelete {
+    background-color: #d84756;
+}
+
+.completed{
+    text-decoration: line-through;
+}
