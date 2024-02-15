@@ -1,17 +1,28 @@
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { CountdownContainer, Separator } from './styles'
 import { differenceInSeconds } from 'date-fns';
+import { CyclesContext } from '../..';
 
-interface CoutdownProps {
-    activeCycle: any
-    setCycles: any
-    activeCyclesId: any
-}
+export default function Countdown() {
 
-export default function Countdown({ activeCycle , setCycles , activeCyclesId } : CoutdownProps ) {
+  const {activeCycle , activeCycleId } = useContext(CyclesContext)
 
   const [amountSecondsPassed, setAmountSecondsPassed] = useState(0)
   const totalSeconds = activeCycle ? activeCycle.minutesAmount * 60 : 0
+
+  const currentSecounds = activeCycle ? totalSeconds - amountSecondsPassed : 0
+
+  const minutesAmount = Math.floor(currentSecounds / 60)
+  const secondAmount = currentSecounds % 60
+
+  const minutes = String(minutesAmount).padStart(2, '0')
+  const second = String(secondAmount).padStart(2, '0')
+
+  useEffect( () => {
+    if( activeCycle ){
+      document.title = `${minutes}:${second}`
+    }
+  },[activeCycle , minutes , second])
 
   
   useEffect(() => {

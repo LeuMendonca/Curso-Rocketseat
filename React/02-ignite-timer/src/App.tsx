@@ -5,6 +5,7 @@ import { Router } from './Router'
 import { BrowserRouter } from 'react-router-dom'
 
 export function App() {
+  
   return (
     <ThemeProvider theme={defaultTheme}>
       
@@ -13,6 +14,7 @@ export function App() {
       </BrowserRouter>
 
       <GlobalStyle />
+      
     </ThemeProvider>
   )
 }

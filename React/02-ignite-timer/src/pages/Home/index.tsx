@@ -1,6 +1,6 @@
 import { HandPalm, Play } from "phosphor-react";
 
-import { useEffect, useState } from "react";
+import { createContext, useEffect, useState } from "react";
 import { differenceInSeconds } from 'date-fns'
 
 import {
@@ -11,21 +11,23 @@ import {
 import { NewCycleForm } from "./components/NewCycleForm";
 import Countdown from "./components/Coutdown";
 
-// interface FormCycleProps {
-//   task: string
-//   minutesAmount: number
-// }
+interface Cycle {
+  id: string
+  task: string
+  minutesAmount: number
+  startDate: Date
+  interruptedDate?: Date
+  finishDate?: Date
+}
+
+interface CyclesContextType {
+  activeCycle: Cycle | undefined
+  activeCycleId: string | null
+}
+
+export const CyclesContext = createContext({ activeCycle } as CyclesContextType)
 
 export function Home() {
-
-  interface Cycle {
-    id: string
-    task: string
-    minutesAmount: number
-    startDate: Date
-    interruptedDate?: Date
-    finishDate?: Date
-  }
 
   const [cycles, setCycles] = useState<Cycle[]>([])
   const [activeCycleId, setActiveCycleId] = useState<string | null>(null)
@@ -65,19 +67,7 @@ export function Home() {
     setActiveCycleId( null )
   }
 
-  const currentSecounds = activeCycle ? totalSeconds - amountSecondsPassed : 0
-
-  const minutesAmount = Math.floor(currentSecounds / 60)
-  const secondAmount = currentSecounds % 60
-
-  const minutes = String(minutesAmount).padStart(2, '0')
-  const second = String(secondAmount).padStart(2, '0')
-
-  useEffect( () => {
-    if( activeCycle ){
-      document.title = `${minutes}:${second}`
-    }
-  },[activeCycle , minutes , second])
+  
 
   const task = watch('task')
   const isSubmitDisabled = !task
@@ -85,9 +75,11 @@ export function Home() {
   return (
     <HomeContainer>
       <form onSubmit={handleSubmit(handleCreateNewCycle)}>
-        <NewCycleForm/>
+        <CyclesContext.Provider value={ activeCycle , activeCycleId }>
+          <NewCycleForm/>
 
-        <Countdown activeCycle={ activeCycle } setCycles={ setCycles } activeCyclesId={ activeCycleId }/>
+          <Countdown />
+        <CyclesContext.Provider/>
 
         { activeCycle ? (
           <StopCountdownButton onClick={ handleInterruptCycle } type="button">
