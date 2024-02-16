@@ -1,13 +1,12 @@
-import React, { useContext, useEffect, useState } from 'react'
+import  { useContext, useEffect} from 'react'
 import { CountdownContainer, Separator } from './styles'
 import { differenceInSeconds } from 'date-fns';
 import { CyclesContext } from '../..';
 
 export default function Countdown() {
 
-  const {activeCycle , activeCycleId } = useContext(CyclesContext)
+  const {activeCycle , activeCycleId ,  markCurrentCycleAsFinished , amountSecondsPassed , setSecoundPassed } = useContext(CyclesContext)
 
-  const [amountSecondsPassed, setAmountSecondsPassed] = useState(0)
   const totalSeconds = activeCycle ? activeCycle.minutesAmount * 60 : 0
 
   const currentSecounds = activeCycle ? totalSeconds - amountSecondsPassed : 0
@@ -22,7 +21,7 @@ export default function Countdown() {
     if( activeCycle ){
       document.title = `${minutes}:${second}`
     }
-  },[activeCycle , minutes , second])
+  },[activeCycle , minutes , second , markCurrentCycleAsFinished])
 
   
   useEffect(() => {
@@ -34,20 +33,12 @@ export default function Countdown() {
         const secoundsDifference = differenceInSeconds(new Date(), activeCycle.startDate)
 
         if( secoundsDifference >= totalSeconds ){
-          setCycles(
-            state => state.map( cycle => {
-              if( cycle.id === activeCycleId ){
-                return { ...cycle , finishDate: new Date()}
-              }else{
-                 return cycle
-              }
-            })
-          )
+          markCurrentCycleAsFinished()
 
-          setAmountSecondsPassed( totalSeconds )
+          setSecoundPassed( totalSeconds )
           clearInterval(interval)
         }else{
-          setAmountSecondsPassed(secoundsDifference)
+          setSecoundPassed(secoundsDifference)
         }
       }, 1000)
 
@@ -58,7 +49,7 @@ export default function Countdown() {
     return () => {
       clearInterval(interval)
     }
-  }, [activeCycle,totalSeconds,activeCycleId]);
+  }, [ activeCycle,totalSeconds,activeCycleId , setSecoundPassed ]);
 
 
     return (
