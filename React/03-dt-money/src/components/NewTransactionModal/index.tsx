@@ -1,16 +1,43 @@
 import * as Dialog from "@radix-ui/react-dialog";
-import { Overlay } from "./styles";
+import * as RadioGroup from '@radix-ui/react-radio-group';
 
-export default function NewTransactionModal() {
+import { Content, Overlay, Title , Close, TransactionsType, TransactionsTypeButton } from "./styles";
+import { ArrowCircleDown, ArrowCircleUp, X } from "phosphor-react";
+
+
+export function NewTransactionModal() {
   return (
     <Dialog.Portal>
         <Overlay/>
 
-        <Dialog.Content>
-        <Dialog.Title>Nova Transação</Dialog.Title>
+        <Content>
+          <Title>Nova Transação</Title>
+          <Close>
+            <X size={ 24 }/>
+          </Close>
 
-        <Dialog.Close>X</Dialog.Close>
-        </Dialog.Content>
+          <form action="">
+            <input type="text" placeholder="Descrição" required/>
+            <input type="number" placeholder="Preço" required/>
+            <input type="text" placeholder="Categoria" required/>
+
+            <TransactionsType>
+              
+              <TransactionsTypeButton variant="entradas" value="entradas">
+                <ArrowCircleUp size={24}/>Entradas
+              </TransactionsTypeButton>
+
+              <TransactionsTypeButton variant={"saidas"} value="saidas">
+                <ArrowCircleDown size={24}/>
+                Saidas
+              </TransactionsTypeButton>
+
+            </TransactionsType>
+
+            <button type="submit">Cadastrar</button>
+          </form>
+
+        </Content>
     </Dialog.Portal>
   )
 }

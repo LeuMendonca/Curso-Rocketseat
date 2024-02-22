@@ -1,7 +1,8 @@
 import { ThemeProvider } from "styled-components"
 import { defaultTheme } from "./styles/theme/default"
 import { GlobalStyle } from "./styles/global"
-import { Transactions } from "./Transactions"
+import { Transactions } from "./Pages/Transactions"
+
 
 function App() {
 
