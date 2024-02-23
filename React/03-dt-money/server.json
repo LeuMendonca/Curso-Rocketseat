@@ -13,7 +13,15 @@
             "description" : "Academia",
             "type" : "outcome",
             "category" : "Beneficio Proprio",
-            "price" : 14000,
+            "price" : 80,
+            "createdAt" : "2024-02-22"
+        },
+        {
+            "id": 3,
+            "description" : "Moto",
+            "type" : "outcome",
+            "category" : "Beneficio Proprio",
+            "price" : 9059.66,
             "createdAt" : "2024-02-22"
         }
     ]

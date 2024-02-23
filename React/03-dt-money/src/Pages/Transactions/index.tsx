@@ -1,32 +1,13 @@
-import { useEffect, useState } from "react";
+import { useContext } from "react";
 import { Header } from "../../components/Header";
 import Summary from "../../components/Sumamary";
 import { SearchForm } from "./components";
 import { TransactionsContainer, TransactionsTable , PriceHighLight } from "./styles";
-
-interface TransactionsProps {
-  id: number
-  description: string
-  type: 'income' | 'outcome'
-  category: string,
-  price: number,
-  createdAt: Date
-}
+import { TransactionContext } from "../../contexts/TransactionsContext";
+import { dateFormatter, priceFormatter } from "../../utils/formatter";
 
 export function Transactions() {
-
-  const [ transactions , setTransactions ] = useState<TransactionsProps[]>([])
-
-  async function getApiTransactions(){
-    const response = await fetch("http://localhost:3000/transactions")
-    const data = await response.json()
-
-    setTransactions(data)
-  }
-
-  useEffect(() => { 
-    getApiTransactions()
-  },[])
+  const { transactions } = useContext(TransactionContext)  
 
   return (
     <div>
@@ -41,9 +22,13 @@ export function Transactions() {
             { transactions.map( item => (
               <tr key={item.id}>
                 <td width="50%">{ item.description}</td>
-                <td><PriceHighLight variant={ item.type }>R$ { item.price.toFixed(2).replace(".",",") }</PriceHighLight></td>
+                <td>
+                  <PriceHighLight variant={ item.type }>
+                    { item.type === "outcome" && "- " }
+                    { priceFormatter.format(item.price) }
+                  </PriceHighLight></td>
                 <td>{ item.category }</td>
-                <td>{ item.createdAt }</td>
+                <td>{ dateFormatter.format( new Date(item.createdAt)) }</td>
               </tr>
             )) 
             }
