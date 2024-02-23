@@ -1,10 +1,33 @@
+import { useEffect, useState } from "react";
 import { Header } from "../../components/Header";
 import Summary from "../../components/Sumamary";
 import { SearchForm } from "./components";
 import { TransactionsContainer, TransactionsTable , PriceHighLight } from "./styles";
 
+interface TransactionsProps {
+  id: number
+  description: string
+  type: 'income' | 'outcome'
+  category: string,
+  price: number,
+  createdAt: Date
+}
 
 export function Transactions() {
+
+  const [ transactions , setTransactions ] = useState<TransactionsProps[]>([])
+
+  async function getApiTransactions(){
+    const response = await fetch("http://localhost:3000/transactions")
+    const data = await response.json()
+
+    setTransactions(data)
+  }
+
+  useEffect(() => { 
+    getApiTransactions()
+  },[])
+
   return (
     <div>
         <Header/>
@@ -15,26 +38,16 @@ export function Transactions() {
 
           <TransactionsTable>
             <tbody>
-              <tr>
-                <td width="50%">Desenvolvimento de site</td>
-                <td><PriceHighLight variant="income">R$ 12.000,00</PriceHighLight></td>
-                <td>Venda</td>
-                <td>13/02/2024</td>
+            { transactions.map( item => (
+              <tr key={item.id}>
+                <td width="50%">{ item.description}</td>
+                <td><PriceHighLight variant={ item.type }>R$ { item.price.toFixed(2).replace(".",",") }</PriceHighLight></td>
+                <td>{ item.category }</td>
+                <td>{ item.createdAt }</td>
               </tr>
-
-              <tr>
-                <td width="50%">Merenda</td>
-                <td><PriceHighLight variant="outcome">-R$ 35,00</PriceHighLight></td>
-                <td>Alimentação</td>
-                <td>15/02/2024</td>
-              </tr>
-
-              <tr>
-                <td width="50%">Aluguel do apartamento</td>
-                <td><PriceHighLight variant="income">R$ 1.200,00</PriceHighLight></td>
-                <td>Moradia</td>
-                <td>18/02/2024</td>
-              </tr>
+            )) 
+            }
+              
             </tbody>
           </TransactionsTable>
         </TransactionsContainer>
