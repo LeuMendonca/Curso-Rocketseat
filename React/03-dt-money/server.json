@@ -1,28 +1,60 @@
 {
-    "transactions": [
-        {
-            "id": 1,
-            "description" : "Desenvolvimento de Site",
-            "type" : "income",
-            "category" : "Venda",
-            "price" : 14000,
-            "createdAt" : "2024-02-22"
-        },
-        {
-            "id": 2,
-            "description" : "Academia",
-            "type" : "outcome",
-            "category" : "Beneficio Proprio",
-            "price" : 80,
-            "createdAt" : "2024-02-22"
-        },
-        {
-            "id": 3,
-            "description" : "Moto",
-            "type" : "outcome",
-            "category" : "Beneficio Proprio",
-            "price" : 9059.66,
-            "createdAt" : "2024-02-22"
-        }
-    ]
+  "transactions": [
+    {
+      "id": "1",
+      "description": "Desenvolvimento de Site",
+      "type": "income",
+      "category": "Venda",
+      "price": 14000,
+      "createdAt": "2024-02-22"
+    },
+    {
+      "id": "2",
+      "description": "Academia",
+      "type": "outcome",
+      "category": "Beneficio Proprio",
+      "price": 80,
+      "createdAt": "2024-02-22"
+    },
+    {
+      "id": "3",
+      "description": "Moto",
+      "type": "outcome",
+      "category": "Beneficio Proprio",
+      "price": 9059.66,
+      "createdAt": "2024-02-22"
+    },
+    {
+      "id": "88f2",
+      "description": "Nova",
+      "price": 123,
+      "category": "dsadsa",
+      "type": "outcome",
+      "createdAt": "2024-02-24T01:32:51.167Z"
+    },
+    {
+      "id": "b5b3",
+      "description": "Jambrolho",
+      "price": 10,
+      "category": "KDOSA",
+      "type": "income",
+      "createdAt": "2024-02-24T01:34:26.560Z"
+    },
+    {
+      "id": "5c17",
+      "description": "dsadas",
+      "price": 12,
+      "category": "dsadsa",
+      "type": "outcome",
+      "createdAt": "2024-02-24T01:36:09.945Z"
+    },
+    {
+      "id": "0eb7",
+      "description": "Atualizado agora",
+      "price": 1000,
+      "category": "Atualizado",
+      "type": "income",
+      "createdAt": "2024-02-24T01:39:31.622Z"
+    }
+  ]
 }
